@@ -4,13 +4,17 @@ import os
 from selenium import webdriver
 
 class ImageSpider(scrapy.Spider):
-    name = 'images'
-    allowed_domains = ['www.flickr.com']
-    start_urls = ['https://www.flickr.com/photos/ryanlenguyen'] #url get image
+
+    name = 'ImageSpider'
+
+    def __init__(self, name=None, **kwargs):
+        super(ImageSpider, self).__init__(name, **kwargs)
+        self.start_urls = ['https://www.flickr.com/photos/ryanlenguyen'] #example: url get image
+        self.allowed_domains = ['www.flickr.com']
 
     def start_requests(self):
         for url in self.start_urls:
-            yield scrapy.Request(url=url)
+            yield scrapy.Request(url=url, callback=self.parse)
     
     def parse(self, response):
         #config selenium chrome

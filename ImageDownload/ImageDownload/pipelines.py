@@ -5,7 +5,6 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
 import os
 
 class ImageDownloadPipeline:
@@ -16,5 +15,5 @@ class ImageDownloadPipeline:
         
         filename = item['url'].split('/')[-1]
         with open(os.path.join(output_dir, filename), 'wb') as f:
-            f.write(item['body'])
+            f.write(item['url'])
         return item
